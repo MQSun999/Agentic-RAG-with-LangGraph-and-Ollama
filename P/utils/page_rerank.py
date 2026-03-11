@@ -4,11 +4,8 @@ from langchain_chroma import Chroma
 import re
 from rank_bm25 import BM25Plus
 
-CHROMA_DIR = "chroma_financial_db"
-COLLECTION_NAME = "financial_docs"
-EMBEDDING_MODEL = "nomic-embed-text"
 BASE_URL = "http://localhost:11434"
-MODEL = "qwen3.5:397b-cloud"
+MODEL = "llama3.2"
 
 llm = ChatOllama(base_url=BASE_URL, model=MODEL)
 

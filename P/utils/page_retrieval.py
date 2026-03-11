@@ -2,11 +2,8 @@ from utils.schemas import ChunkMetadata, RankingKeywords
 from langchain_ollama import OllamaEmbeddings, ChatOllama
 from langchain_chroma import Chroma
 
-CHROMA_DIR = "chroma_financial_db"
-COLLECTION_NAME = "financial_docs"
-EMBEDDING_MODEL = "nomic-embed-text"
 BASE_URL = "http://localhost:11434"
-MODEL = "qwen3.5:397b-cloud"
+MODEL = "llama3.2"
 
 llm = ChatOllama(base_url=BASE_URL, model=MODEL)
 
