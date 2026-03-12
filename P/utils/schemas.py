@@ -35,6 +35,7 @@ class ChunkMetadata(BaseModel):
 
 
 class RankingKeywords(BaseModel):
+    """Must return an object with a keywords field, NOT a plain list."""
     keywords: List[str] = Field(..., description="Generate Exactly 5 financial keywords related to user query", min_length=5, max_length=5)
 
     
