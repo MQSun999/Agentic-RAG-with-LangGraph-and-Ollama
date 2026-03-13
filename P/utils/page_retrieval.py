@@ -2,17 +2,12 @@ from utils.schemas import ChunkMetadata, RankingKeywords
 from langchain_ollama import OllamaEmbeddings, ChatOllama
 from langchain_chroma import Chroma
 
-BASE_URL = "http://localhost:11434"
-MODEL = "llama3.2"
-
-llm = ChatOllama(base_url=BASE_URL, model=MODEL)
-
 # 调用llm从用户的问题中提取关键词，返回关键词字典
-def extract_filters(user_query:str) -> dict:
+def extract_filters(user_query:str, llm) -> dict:
 
     llm_structured = llm.with_structured_output(ChunkMetadata)
 
-    prompt = f"""Extract metadata filters from the query. Return None for fields not mentioned.
+    prompt = f"""Extract metadata filters from the query. Output valid JSON only. Use null (not None) for missing fields.
 
                 USER QUERY: {user_query}
 

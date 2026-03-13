@@ -4,13 +4,8 @@ from langchain_chroma import Chroma
 import re
 from rank_bm25 import BM25Plus
 
-BASE_URL = "http://localhost:11434"
-MODEL = "llama3.2"
-
-llm = ChatOllama(base_url=BASE_URL, model=MODEL)
-
 # 调用llm生成与问题可能相关的keyword，便于之后提取内容进行排序
-def generate_ranking_keywords(user_query: str) -> list:
+def generate_ranking_keywords(user_query: str, llm) -> list:
     # ALT + Z
     prompt = f"""Generate EXACTLY 5 financial keywords from SEC filings terminology.
 
@@ -41,7 +36,8 @@ def generate_ranking_keywords(user_query: str) -> list:
                 "cash flow performance" -> ["consolidated statements of cash flows", "cash flows from operating activities", "net cash provided by operating activities", "free cash flow", "operating activities"]
                 "balance sheet strength" -> ["consolidated balance sheets", "total assets", "stockholders equity", "cash and cash equivalents", "long-term debt"]
 
-                Generate EXACTLY 5 keywords:
+                Generate EXACTLY 5 keywords as JSON object:
+                {{"keywords": ["keyword1", "keyword2", "keyword3", "keyword4", "keyword5"]}}
                 """
     
     llm_structured = llm.with_structured_output(RankingKeywords)
