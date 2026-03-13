@@ -38,4 +38,32 @@ class RankingKeywords(BaseModel):
     """Must return an object with a keywords field, NOT a plain list."""
     keywords: List[str] = Field(..., description="Generate Exactly 5 financial keywords related to user query", min_length=5, max_length=5)
 
-    
+
+class GradeDocuments(BaseModel):
+    """Binary score for relevance check on retrieved documents."""
+
+    binary_score: str = Field(
+        description="Documents are relevant to the query, 'yes' or 'no'"
+    )
+
+
+class GradeHallucinations(BaseModel):
+    """Binary score for hallucination present in generation answer."""
+
+    binary_score: str = Field(
+        description="Answer is grounded with the facts for the query, 'yes' or 'no'"
+    )
+
+
+class GradeAnswer(BaseModel):
+    """Binary score to assess answer addresses query."""
+
+    binary_score: str = Field(description="Answer addresses the query, 'yes' or 'no'")
+
+
+class SearchQueries(BaseModel):
+    """Search queries for retrieving missing information."""
+
+    search_queries: list[str] = Field(
+        description="1-3 search queries to retrieve the missing information."
+    )
